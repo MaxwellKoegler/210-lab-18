@@ -34,9 +34,39 @@ void setTitle(string w) {
 string getTitle() {
     return title;
 }
-void print() { //print helper function
+void print() {
+        cout << "Title: " << title << endl;
+
+        Review *current = head;
+        double t = 0;
+        int c = 0;
+
+        while (current) {
+            cout << "Rating: " << current->rating << endl;
+            cout << "Review: " << current->comment << endl;
+            t += current->rating;
+            c++;
+            current = current->next;
+        }
+        if (c > 0) {
+            cout << "Average rating: " << t / c << endl;
+        }
+        cout << endl;
+    }
+
+    ~Movie() {
+        Review *current = head;
+        while (current) {
+            Review *next = current->next;
+            delete current;
+            current = next;
+        }
+    }
+
     
-}
+
+
+
 };
 
 int main(){
