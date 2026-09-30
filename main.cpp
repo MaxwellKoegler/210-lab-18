@@ -87,21 +87,37 @@ void print() {
 
 int main(){
     ifstream file("input.txt"); //input file init
-    string line1;
-    int line2;
-    string line3;
+    string comment;
     vector<Movie> movies; //vector storage of type movies
-    while(getline(file, line1)) {
-        file >> line2; //line reading
-        file.ignore();
-        getline(file, line3);  
-        Movie temp = Movie(); //temp init
-        temp.setTitle(line1);
-        temp.setYearReleased(line2);
-        temp.setScreenWriter(line3);
-        movies.push_back(temp); //temp push to container
+    Movie movie1("Movie 1");
+    Movie movie2("Movie 2");
+    Movie movie3("Movie 3");
+    Movie movie4("Movie 4");
+
+    for(int i = 0; i < 3; i++){
+        getline(file, comment);
+        double rating = 1.0 + (rand() % 41) / 10.0;
+        movie1.addReview(rating, comment);
     }
-    for(Movie m : movies){
-        m.print();
+
+    for(int i = 0; i < 3; i++){
+        getline(file, comment);
+        double rating = 1.0 + (rand() % 41) / 10.0;
+        movie2.addReview(rating, comment);
     }
+
+    for(int i = 0; i < 3; i++){
+        getline(file, comment);
+        double rating = 1.0 + (rand() % 41) / 10.0;
+        movie3.addReview(rating, comment);
+    }
+
+    for(int i = 0; i < 3; i++){
+        getline(file, comment);
+        double rating = 1.0 + (rand() % 41) / 10.0;
+        movie4.addReview(rating, comment);
+    }
+
+
+
 }
