@@ -19,7 +19,6 @@ Movie(string t){
     title = t;
     head = nullptr;
 }
-
 void addReview(double rating, string comment){
     Review *newReview = new Review;
     newReview->rating = rating;
@@ -27,7 +26,6 @@ void addReview(double rating, string comment){
     newReview->next = head;
     head = newReview;
 }
-
 void setTitle(string w) {
     title = w;
 }
@@ -36,17 +34,15 @@ string getTitle() {
 }
 void print() {
         cout << "Title: " << title << endl;
-
-        Review *current = head;
+        Review *cur = head;
         double t = 0;
         int c = 0;
-
-        while (current) {
-            cout << "Rating: " << current->rating << endl;
-            cout << "Review: " << current->comment << endl;
-            t += current->rating;
+        while (cur) {
+            cout << "Rating: " << cur->rating << endl;
+            cout << "Review: " << cur->comment << endl;
+            t += cur->rating;
             c++;
-            current = current->next;
+            cur = cur->next;
         }
         if (c > 0) {
             cout << "Average rating: " << t / c << endl;
@@ -55,18 +51,38 @@ void print() {
     }
 
     ~Movie() {
-        Review *current = head;
-        while (current) {
-            Review *next = current->next;
-            delete current;
-            current = next;
+        Review *c = head;
+        while (c) {
+            Review *next = c->next;
+            delete c;
+            c = next;
         }
     }
-
-    
-
-
-
+    Movie(Movie &other) {
+        title = other.title;
+        head = nullptr;
+        Review *c = other.head;
+        while (c) {
+            addReview(c->rating, c->comment);
+            c = c->next;
+        }
+    }
+    Movie& operator=(const Movie &other) {
+        title = other.title;
+        Review *c = head;
+        while (c) {
+            Review *next = c->next;
+            delete c;
+            c = next;
+        }
+        head = nullptr;
+        c = other.head;
+        while (c) {
+            addReview(c->rating, c->comment);
+            c = c->next;
+        }
+        return *this;
+    }
 };
 
 int main(){
