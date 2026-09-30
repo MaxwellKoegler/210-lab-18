@@ -1,15 +1,15 @@
-//maxwell koegler | COMSC 210 | lab 15 | 9/22/26
+//maxwell koegler | COMSC 210 | lab 15 | 9/29/26
 #include <iostream>
 #include <fstream>
 #include <string>
-#include <vector>
+#include <vector> 
 
 using namespace std;
 class Movie { //movie class with protected vars and appropriate setters and getters
 private:
-string screenWriter;
-int yearReleased;
-string title;
+    string screenWriter;
+    int yearReleased;
+    string title;
 public:
 void setScreenWriter(string w) {
     screenWriter = w;
