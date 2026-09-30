@@ -1,13 +1,13 @@
-//maxwell koegler | COMSC 210 | lab 15 | 9/29/26
+//maxwell koegler | COMSC 210 | lab 18 | 9/29/26
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector> 
 
 using namespace std;
-class Movie { //movie class with protected vars and appropriate setters and getters
+class Movie { //movie class with protected vars
 private:
-    struct Review {
+    struct Review { //protected review linked list
         double rating;
         string comment;
         Review *next;
@@ -15,24 +15,18 @@ private:
     string title;
     Review *head;
 public:
-Movie(string t){
+Movie(string t){ //movie struct stored publically
     title = t;
     head = nullptr;
 }
-void addReview(double rating, string comment){
+void addReview(double rating, string comment){ //add a review
     Review *newReview = new Review;
     newReview->rating = rating;
     newReview->comment = comment;
     newReview->next = head;
     head = newReview;
 }
-void setTitle(string w) {
-    title = w;
-}
-string getTitle() {
-    return title;
-}
-void print() {
+void print() { //print all stored class information
         cout << "Title: " << title << endl;
         Review *cur = head;
         double t = 0;
@@ -49,8 +43,7 @@ void print() {
         }
         cout << endl;
     }
-
-    ~Movie() {
+    ~Movie() { //destruct and dismantle linked list and all internal class components
         Review *c = head;
         while (c) {
             Review *next = c->next;
@@ -58,7 +51,7 @@ void print() {
             c = next;
         }
     }
-    Movie(Movie &other) {
+    Movie(const Movie &other) { //instanciate this constructed class as a copy of another
         title = other.title;
         head = nullptr;
         Review *c = other.head;
@@ -67,7 +60,7 @@ void print() {
             c = c->next;
         }
     }
-    Movie& operator=(const Movie &other) {
+    Movie& operator=(const Movie &other) { //transfer all data from another class into this one
         title = other.title;
         Review *c = head;
         while (c) {
@@ -89,35 +82,36 @@ int main(){
     ifstream file("input.txt"); //input file init
     string comment;
     vector<Movie> movies; //vector storage of type movies
-    Movie movie1("Movie 1");
-    Movie movie2("Movie 2");
-    Movie movie3("Movie 3");
-    Movie movie4("Movie 4");
-
-    for(int i = 0; i < 3; i++){
+    Movie movie1("Interstellar");
+    Movie movie2("Wall E.");
+    Movie movie3("Saving Private Ryan");
+    Movie movie4("Project Hail Mary");
+    for(int i = 0; i < 3; i++){ //movie one reviews
         getline(file, comment);
         double rating = 1.0 + (rand() % 41) / 10.0;
         movie1.addReview(rating, comment);
     }
-
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 3; i++){ //movie two reviews
         getline(file, comment);
         double rating = 1.0 + (rand() % 41) / 10.0;
         movie2.addReview(rating, comment);
     }
-
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 3; i++){ //movie three revies
         getline(file, comment);
         double rating = 1.0 + (rand() % 41) / 10.0;
         movie3.addReview(rating, comment);
     }
-
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 3; i++){ // movie four reviews
         getline(file, comment);
         double rating = 1.0 + (rand() % 41) / 10.0;
         movie4.addReview(rating, comment);
     }
-
-
-
+    movies.push_back(movie1); //vector ammendments
+    movies.push_back(movie2);
+    movies.push_back(movie3);
+    movies.push_back(movie4);
+    for (Movie m : movies) { //printing
+        m.print();
+    }
+    return 0;
 }
