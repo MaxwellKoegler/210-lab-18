@@ -7,22 +7,27 @@
 using namespace std;
 class Movie { //movie class with protected vars and appropriate setters and getters
 private:
-    string screenWriter;
-    int yearReleased;
+    struct Review {
+        double rating;
+        string comment;
+        Review *next;
+    };
     string title;
+    Review *head;
 public:
-void setScreenWriter(string w) {
-    screenWriter = w;
+Movie(string t){
+    title = t;
+    head = nullptr;
 }
-string getScreenWriter() {
-    return screenWriter;
+
+void addReview(double rating, string comment){
+    Review *newReview = new Review;
+    newReview->rating = rating;
+    newReview->comment = comment;
+    newReview->next = head;
+    head = newReview;
 }
-void setYearReleased(int y) {
-    yearReleased = y;
-}
-int getYearReleased(){
-    return yearReleased;
-}
+
 void setTitle(string w) {
     title = w;
 }
@@ -30,9 +35,7 @@ string getTitle() {
     return title;
 }
 void print() { //print helper function
-    cout << "Screen Writer: " << screenWriter << endl;
-    cout << "Year released : " << yearReleased << endl;
-    cout << "Title: " << title << endl;
+    
 }
 };
 
